@@ -1,5 +1,5 @@
-/* Couldn't get the bootstrap-loader to work - no output */
 /* require('bootstrap-loader') */
+/* Couldn't get the bootstrap-loader to work - no output */
 
 import Vue from 'vue'
 import App from './App'
@@ -13,13 +13,15 @@ import Users from './components/Users'
 import Import from './components/Import'
 import Register from './components/Register'
 
+import auth from './auth'
+
 Vue.use(VueResource)
 Vue.use(VueRouter)
 
-import auth from './auth'
-
 Vue.http.options.root = 'http://localhost:8000/api'
-Vue.http.headers.common['Authorization'] = auth.getAuthHeader()
+// Vue.http.headers.common['Authorization'] = auth.getAuthHeader()
+// doesn't seem to work correctly - is cached
+// solved in auth module by updating this.$http.headers programmatically
 
 auth.checkAuth()
 

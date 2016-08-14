@@ -45,11 +45,12 @@ export default {
         this.user.email === this.user_clean.email &&
         this.user.password === this.user_clean.password &&
         this.user.password_confirmation === this.user_clean.password_confirmation)
+        // TODO: optimize
     }
   },
   methods: {
     attemptUpdate () {
-      users.update(this)
+      users.update(this, auth.getTokenQueryParam())
     }
   },
   route: {
@@ -61,8 +62,7 @@ export default {
       }
     },
     activate ({ next }) {
-      users.me(this, auth.user.token) // setting user and user_clean inside - which is ugly
-
+      users.me(this, auth.getTokenQueryParam())
       next()
     }
   }
