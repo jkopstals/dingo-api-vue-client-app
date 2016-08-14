@@ -18,6 +18,9 @@ Vue.use(VueRouter)
 
 import auth from './auth'
 
+Vue.http.options.root = 'http://localhost:8000/api'
+Vue.http.headers.common['Authorization'] = auth.getAuthHeader()
+
 auth.checkAuth()
 
 /* eslint-disable no-new */

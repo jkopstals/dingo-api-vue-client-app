@@ -1,4 +1,5 @@
 <template>
+<body>
   <div id="app">
     <nav class="navbar navbar-default">
       <div class="container">
@@ -16,11 +17,13 @@
       <router-view></router-view>
     </div>
   </div>
+</body>
 </template>
 
 <script>
 import auth from './auth'
 export default {
+  replace: true,
   data () {
     return {
       user: auth.user

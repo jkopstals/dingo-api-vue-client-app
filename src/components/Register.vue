@@ -13,19 +13,20 @@
       <label for="inputPassword" class="sr-only">Password</label>
       <input type="password" id="inputPassword" class="form-control" placeholder="Password" v-model="user.password" required>
       <label for="inputPasswordConfirm" class="sr-only">Password Confirmation</label>
-      <input type="password" id="inputPasswordConfirm" class="form-control" placeholder="Password Confirmation" v-model="user.passwordConfirmation" required>
+      <input type="password" id="inputPasswordConfirm" class="form-control" placeholder="Password Confirmation" v-model="user.password_confirmation" required>
       <br />
       <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
     </form>
     <hr />
     <a class="btn btn-lg btn-primary btn-block btn-login btn-success" v-link="'login'" type="button">Already registered</a>
-    <pre>{{ $data | json}}</pre>
+    <pre>DEBUG: {{ $data | json}}</pre>
 
   </div>
 </template>
 
 <script>
-import auth from '../auth'
+// import auth from '../auth'
+import users from '../users'
 export default {
   data () {
     return {
@@ -33,20 +34,17 @@ export default {
         name: '',
         email: '',
         password: '',
-        passwordConfirmation: ''
+        password_confirmation: ''
       },
       error: ''
     }
   },
   methods: {
     attemptRegister () {
-      var user = {
-        name: this.user.name,
-        email: this.user.email,
-        password: this.user.password,
-        passwordConfirmation: this.user.passwordConfirmation
-      }
-      auth.register(this, user, 'me')
+      var user = this.user
+      users.store(this, user, 'login')
+      this.user = user
+      this.user_clean = JSON.parse(JSON.stringify(user))
     }
   }
 }
