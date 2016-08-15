@@ -1,4 +1,5 @@
 
+import auth from '../auth'
 export default {
 
   store (context, user, redirect) {
@@ -21,12 +22,26 @@ export default {
     context.$http.post('users/' + context.user.id + '?' + tokenparam, context.user).then((response) => {
       if (response.json().data.id) {
         context.user_clean = JSON.parse(JSON.stringify(context.user))
+        context.formErrorsUpdate = []
+      } else {
+        context.error = 'Unknown error'
+      }
+    }, (response) => {
+      context.formErrorsUpdate = response.json().errors
+    })
+  },
+  delete (context, tokenparam) {
+    // context.error = '' + user.name + ', ' + user.email + ', ' + user.password + ', ' + user.passwordConfirmation + '.'
+    context.$http.delete('users/' + context.user.id + '?' + tokenparam, context.user).then((response) => {
+      if (response.status === 204) {
+        auth.logout()
+        context.$router.go('login')
       } else {
         context.error = 'Unknown error'
       }
     }, (response) => {
       console.log(response)
-      context.error = response.json().errors
+      context.error = response.json().message
     })
   },
   me (context, tokenparam = '') {

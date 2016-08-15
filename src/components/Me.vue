@@ -6,18 +6,33 @@
       <div class="alert alert-danger" v-if="error">
         {{ error }}
       </div>
-      <label for="inputName" class="sr-only">Name</label>
-      <input type="text" id="inputName" class="form-control" placeholder="Name" v-model="user.name" required autofocus>
-      <label for="inputEmail" class="sr-only">Email address</label>
-      <input type="email" id="inputEmail" class="form-control" placeholder="Email address" v-model="user.email" required>
-      <label for="inputPassword" class="sr-only">Password</label>
-      <input type="password" id="inputPassword" class="form-control" placeholder="Password" v-model="user.password" required>
-      <label for="inputPasswordConfirm" class="sr-only">Password Confirmation</label>
-      <input type="password" id="inputPasswordConfirm" class="form-control" placeholder="Password Confirmation" v-model="user.password_confirmation" required>
-      <br />
-      <button class="btn btn-lg btn-primary btn-block" v-bind:class="{'disabled' :!isDirty}" type="submit">Update</button>
+      <div class="form-group">
+        <label for="inputName" class="sr-only">Name</label>
+        <input type="text" id="inputName" class="form-control" placeholder="Name" v-model="user.name" required autofocus>
+        <span v-if="formErrorsUpdate['name']" class="error text-danger">{{ formErrorsUpdate['name'] }}</span>
+      </div>
+      <div class="form-group">
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" v-model="user.email" required>
+        <span v-if="formErrorsUpdate['email']" class="error text-danger">{{ formErrorsUpdate['email'] }}</span>
+      </div>
+      <div class="form-group">
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" v-model="user.password" required>
+        <span v-if="formErrorsUpdate['password']" class="error text-danger">{{ formErrorsUpdate['password'] }}</span>
+      </div>
+      <div class="form-group">
+        <label for="inputPasswordConfirm" class="sr-only">Password Confirmation</label>
+        <input type="password" id="inputPasswordConfirm" class="form-control" placeholder="Password Confirmation" v-model="user.password_confirmation" required>
+        <span v-if="formErrorsUpdate['password_confirmation']" class="error text-danger">{{ formErrorsUpdate['password_confirmation'] }}</span>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-lg btn-primary btn-block" v-bind:class="{'disabled' :!isDirty}" type="submit">Update</button>
+      </div>
     </form>
-    <pre>DEBUG: {{ $data | json}}</pre>
+    <hr />
+    <a class="btn btn-lg btn-primary btn-block btn-register btn-success" @click="attemptDelete" type="button">Delete my user</a>
+    <!--<pre>DEBUG: {{ $data | json}}</pre>-->
 
   </div>
 </template>
@@ -36,6 +51,7 @@ export default {
         password_confirmation: ''
       },
       user_clean: {},
+      formErrorsUpdate: {},
       error: ''
     }
   },
@@ -51,6 +67,9 @@ export default {
   methods: {
     attemptUpdate () {
       users.update(this, auth.getTokenQueryParam())
+    },
+    attemptDelete () {
+      users.delete(this, auth.getTokenQueryParam())
     }
   },
   route: {

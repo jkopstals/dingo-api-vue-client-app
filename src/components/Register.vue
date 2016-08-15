@@ -19,7 +19,7 @@
     </form>
     <hr />
     <a class="btn btn-lg btn-primary btn-block btn-login btn-success" v-link="'login'" type="button">Already registered</a>
-    <pre>DEBUG: {{ $data | json}}</pre>
+    <!--<pre>DEBUG: {{ $data | json}}</pre>-->
 
   </div>
 </template>

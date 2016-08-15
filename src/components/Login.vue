@@ -15,9 +15,7 @@
     </form>
     <hr />
     <a class="btn btn-lg btn-primary btn-block btn-register btn-success" v-link="'register'" type="button">Register</a>
-    <pre>DEBUG: {{ $data | json}}</pre>
-
-
+    <!--<pre>DEBUG: {{ $data | json}}</pre>-->
   </div>
 </template>
 
