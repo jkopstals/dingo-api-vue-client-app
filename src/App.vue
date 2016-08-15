@@ -9,7 +9,7 @@
           <li><a v-link="'me'" v-if="user.authenticated">My Profile</a></li>
           <li><a v-link="'users'" v-if="user.authenticated">All users</a></li>
           <li><a v-link="'import'" v-if="user.authenticated">Import users</a></li>
-          <li><a v-link="'login'" v-if="user.authenticated" @click="logout()">Log Out</a></li>
+          <li class="logout"><a v-link="'login'" v-if="user.authenticated" name="logout" @click="logout()">Log Out</a></li>
         </ul>
       </div>
     </nav>
